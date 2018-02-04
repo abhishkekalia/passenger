@@ -1,0 +1,78 @@
+PODS:
+  - react-native-mapbox-gl (6.0.3-rc1)
+  - React/Core (0.51.0):
+    - yoga (= 0.51.0.React)
+  - React/DevSupport (0.51.0):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.51.0)
+  - React/RCTActionSheet (0.51.0):
+    - React/Core
+  - React/RCTAnimation (0.51.0):
+    - React/Core
+  - React/RCTBlob (0.51.0):
+    - React/Core
+  - React/RCTCameraRoll (0.51.0):
+    - React/Core
+    - React/RCTImage
+  - React/RCTGeolocation (0.51.0):
+    - React/Core
+  - React/RCTImage (0.51.0):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.51.0):
+    - React/Core
+  - React/RCTNetwork (0.51.0):
+    - React/Core
+  - React/RCTPushNotification (0.51.0):
+    - React/Core
+  - React/RCTSettings (0.51.0):
+    - React/Core
+  - React/RCTTest (0.51.0):
+    - React/Core
+  - React/RCTText (0.51.0):
+    - React/Core
+  - React/RCTVibration (0.51.0):
+    - React/Core
+  - React/RCTWebSocket (0.51.0):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.51.0.React)
+
+DEPENDENCIES:
+  - react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)
+  - React/Core (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTBlob (from `../node_modules/react-native`)
+  - React/RCTCameraRoll (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTPushNotification (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
+  - React/RCTTest (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: ../node_modules/react-native
+  react-native-mapbox-gl:
+    :path: ../node_modules/@mapbox/react-native-mapbox-gl
+  yoga:
+    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
+
+SPEC CHECKSUMS:
+  React: 541ba768b9855e10cdc76f55427a5cd0653ca806
+  react-native-mapbox-gl: 99ef75f9c41db4af93513c813cb4591f1c1a35e8
+  yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
+
+PODFILE CHECKSUM: 8e412df9419f92d51c55c48280d14052a6782026
+
+COCOAPODS: 1.4.0
