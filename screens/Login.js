@@ -31,7 +31,7 @@ export default class Register extends Component<{}> {
   }
 
   changeText(newText) {
-    this.setState({ phoneNumber: newText });
+    this.setState({ username: newText });
   }
 
   render() {
@@ -44,7 +44,7 @@ export default class Register extends Component<{}> {
                 placeholderTextColor = '#fff'
                 autoCorrect = {false}
                 onChangeText={(text) => this.setState({username: text})}
-                value={this.state.phoneNumber}
+                value={this.state.username}
               />
               <TextInput 
                 style={styles.textbox}
@@ -53,7 +53,7 @@ export default class Register extends Component<{}> {
                 secureTextEntry = {true}
                 placeholderTextColor = '#fff'
                 onChangeText={(text) => this.setState({password: text})}
-                value={this.state.phoneNumber}
+                value={this.state.password}
               />
               <View style={styles.rowTextView} >
                 <View style={styles.leftView} >

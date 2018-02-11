@@ -1,5 +1,6 @@
+const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoic3VoYWlsd2FraWwiLCJhIjoiY2pkNG85aGd6NGpyejJ5bzV5ZHBtM2tvMCJ9.jHWo8YAjscitA5eIz9oCNA'
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
-MapboxGL.setAccessToken('pk.eyJ1Ijoic3VoYWlsd2FraWwiLCJhIjoiY2pkNG85aGd6NGpyejJ5bzV5ZHBtM2tvMCJ9.jHWo8YAjscitA5eIz9oCNA');
+MapboxGL.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 import React, { Component } from 'react';
 import {
@@ -7,23 +8,69 @@ import {
   StyleSheet,
   Text,
   View,
+  Modal,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  StatusBar,
   TouchableHighlight,
-  Icon,
   AlertIOS,
   Dimensions,
+  TextInput,
   Animated
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
+
+import MappingKit from './MappingKit';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import places from '../assets/places.json';
+import busCol from '../assets/busses.json';
+
+import {
+  blueTheme,
+  blueThemeBus
+} from './themes';
+
+const IS_IOS = Platform.OS === 'ios';
+const ThemeList = [
+  {
+    name: 'Blue Theme',
+    theme: blueTheme,
+    image: require('../assets/blue_button_image.png'),
+  },
+  {
+    name: 'Blue Theme',
+    theme: blueThemeBus,
+    image: require('../assets/house_icon.png'),
+  }
+];
+
 var styles = require('./DashboardStyles');
 
-const LATITUDE = 32.7157;
-const LONGITUDE = -117.1611;
+ 
+const LATITUDE = 5.639344; 
+const LONGITUDE = -0.243016;
 
-const PROFILEID = '789';
-const socketURL = 'https://smarttransit-dev-map-api.herokuapp.com'
+const PROFILEID = '786';
+const socketURL = 'https://smarttransit-dev-map-api.herokuapp.com/v1/socket'
+
+
+export const theme = new MappingKit.Theme({
+  icon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
+  activeIcon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
+  styleURL: MapboxGL.StyleURL.Light,
+  primaryColor: `#A35BCD`,
+  primaryDarkColor: '#5D39BA',
+  directionsLineColor: '#987DDF',
+  cardIcon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
+  cardTextColor: '#6A159B',
+  accentColor: '#C7A8D9',
+});
 
 export default class Dashboard extends Component<{}> {
   constructor() {
@@ -33,26 +80,28 @@ export default class Dashboard extends Component<{}> {
       //alert('connected!');
     });
 
+    this.onDismiss = this.onDismiss.bind(this);
+
     this.state = {
+      isGranted: IS_IOS,
+      activeTheme: ThemeList[0].theme,
+      busTheme: ThemeList[1].theme,
+      initialLocation: [LONGITUDE,LATITUDE],
+
       activeAnnotationIndex: -1,
       previousActiveAnnotationIndex: -1,
       coordinates: [
         [LONGITUDE, LATITUDE],
       ],
       mycoordinates: [LONGITUDE, LATITUDE],
-      busses: [
-      {
-        title: '',
-        coordinates: {
-          latitude: LATITUDE,
-          longitude: LONGITUDE
-        },  
-      }],
+      busses: [],
+      busListWrap: {},
       sendObj: {
         profileid: '',
-        latlong: '',
-        timestamp: '',
+        lat: '',
+        long: '',
         tripid: '',
+        label: '',
       },
  
     };
@@ -63,18 +112,33 @@ export default class Dashboard extends Component<{}> {
 
   }
 
+  async componentWillMount () {
+    if (!IS_IOS) {
+      const isGranted = await MapboxGL.requestAndroidLocationPermissions();
+      this.setState({ isGranted: isGranted });
+    }
+    MapboxGL.setAccessToken(MAPBOX_ACCESS_TOKEN);
+  }
+
+  onDismiss () {
+    StatusBar.setBarStyle('dark-content');
+    this.setState({ activeTheme: null, busTheme: null });
+  }
+
+
   onPress (feature) {
     this.setState({
           mycoordinates:feature.geometry.coordinates,
           sendObj: {
               profileid: PROFILEID,
-              latlong: feature.geometry.coordinates[0] + ',' + feature.geometry.coordinates[1], 
-              timestamp: '02:02',
+              lat: feature.geometry.coordinates[0], 
+              long: feature.geometry.coordinates[1],
               tripid: '100',
+              label: 'Hola Bus'
             }
           }, 
           function(){
-            this.socket.emit('/v1/socket/geo-location/transportation-profile/update', this.state.sendObj)
+            this.socket.emit('/geo-location/transportation-profile/update', this.state.sendObj)
           })
   }
 
@@ -110,30 +174,102 @@ export default class Dashboard extends Component<{}> {
     if (!socket) return;
     socket.on('disconnect', () => alert('You have been disconnected.'));
 
-     this.socket.on('/v1/socket/geo-location/transportation-profile/subscribe', (locationState) => {
+     this.socket.on('/geo-location/transportation-profile/subscribe', (locationState) => {
         var busses = [];
+        var busList = [];
         for (var key in locationState) {
             if (locationState.hasOwnProperty(key)) {
               var innerObj = locationState[key]
-              var latlong = locationState[key]['latlong'].split(",");
-              var lat = Number(latlong[1]);
-              var lon = Number(latlong[0]);
+              var lat = Number(innerObj['lat']);
+              var lon = Number(innerObj['long']);
+              var label = Number(innerObj['label']);
+
+              var busObject = {
+                  id: innerObj['profileid'],
+                  type: "Feature",
+                  geometry: {
+                    type: "Point",
+                    coordinates: [
+                      (isNaN(lat) ? 0 : lat), 
+                      (isNaN(lon) ? 0 : lon)
+                    ]
+                  },
+                  properties: {
+                    name: innerObj['label'],
+                    phoneFormatted: innerObj['tripid'],
+                    addressFormatted: "None",
+                    hoursFormatted: "10 AM - 9 PM"
+                  }
+                }
 
               var busObj = {
-                title: locationState[key]['profileid'] + ' ' +locationState[key]['tripid']+ ' '+ locationState[key]['type'],
+                title: innerObj['label'],
                 coordinates: {
                   latitude: (isNaN(lat) ? 0 : lat), 
                   longitude: (isNaN(lon) ? 0 : lon) 
                 },
               }
               busses.push(busObj);
+              busList.push(busObject);
             }
         }
-        this.setState({busses: busses})
+        var busListWrap = {  
+           type:"FeatureCollection",
+            features:busList
+          }
+
+        this.setState({busses: busses, busListWrap: busListWrap })
+
+        
+        
       });
   }
 
   componentWillUnmount() {
+  }
+
+  renderMap () {
+    if (!this.state.activeTheme) {
+      return null;
+    }
+
+    StatusBar.setBarStyle('light-content');
+
+    return (
+      <Modal
+        visible={!!this.state.activeTheme}
+        animationType='slide'
+        transparent
+        onRequestClose={this.onDismiss}>
+        <View style={styles.matchParent}>
+          <MappingKit.MapView
+            simulateUserLocation
+            accessToken={MAPBOX_ACCESS_TOKEN}
+            theme={this.state.activeTheme}
+            bustheme={this.state.busTheme}
+            centerCoordinate={this.state.initialLocation}
+            featureCollection={places}
+            busCollection={this.state.busListWrap}
+            zoomLevel={13}
+            style={styles.matchParent} />
+
+          <View style={styles.mapHeader}>
+            <LinearGradient
+              style={styles.mapGradient}
+              colors={['black', 'transparent']} />
+
+            <Icon
+              name='keyboard-backspace'
+              size={28}
+              onPress={this.onDismiss}
+              style={styles.backArrow}
+              color='white' />
+
+            <Text style={styles.mapHeaderText}>Start Your Trip</Text>
+          </View>
+        </View>
+      </Modal>
+    );
   }
 
   renderMyBus () {
@@ -193,33 +329,25 @@ export default class Dashboard extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.innerTop} >
-            <Text style={styles.paragraph}>
-              Passenger App 
-            </Text>
-            <MapboxGL.MapView
-              ref={(c) => this._map = c}
-              zoomLevel={5}
-              showUserLocation={true}
-              onDidFinishLoadingMap={this.onDidFinishLoadingMap}
-              centerCoordinate={this.state.coordinates[0]}
-              style={{flex:1}}>
-              {this.renderBusses()}
-            </MapboxGL.MapView>
-          </View>
-          <View style={styles.innerBot} >
+     
+          <View style={{flex: 1}} >
             <Text style={styles.paragraph}>
               Bus App 
             </Text>
             <MapboxGL.MapView
               ref={(c) => this._map = c}
-              zoomLevel={5}
+              zoomLevel={15}
               onPress={this.onPress}
               onDidFinishLoadingMap={this.onDidFinishLoadingMap}
               centerCoordinate={this.state.mycoordinates}
-              style={{flex:1}}>
+              style={{flex:1}}
+              styleURL='mapbox://styles/suhailwakil/cjd8f22c28yv72sp43vj765xy'
+              >
               {this.renderMyBus()}
             </MapboxGL.MapView>
+            <View>
+              {this.renderMap()}
+            </View>
           </View>
 
 

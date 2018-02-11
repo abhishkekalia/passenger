@@ -30,6 +30,22 @@ export const Tabs = TabNavigator({
   },);
 
 export const FeedStack = StackNavigator({
+    Dashboard: {
+    screen: Dashboard,
+    navigationOptions: ({ navigation }) => ({
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      title: `Dashboard`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+        //borderBottomColor: '#ffffff',
+        //borderBottomWidth: 3,
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
   Newuser: {
     screen: Newuser,
     navigationOptions: {
@@ -77,22 +93,7 @@ export const FeedStack = StackNavigator({
       },
     }),
   },
-  Dashboard: {
-    screen: Dashboard,
-    navigationOptions: ({ navigation }) => ({
-      //title: `${navigation.state.params.name.toUpperCase()}`,
-      title: `Dashboard`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#5F514B',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
-    }),
-  },
+
 },
 {
     tabBarPosition: 'bottom',

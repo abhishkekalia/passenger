@@ -1,4 +1,8 @@
 PODS:
+  - BVLinearGradient (2.4.0):
+    - React
+  - React (0.51.0):
+    - React/Core (= 0.51.0)
   - react-native-mapbox-gl (6.0.3-rc1)
   - React/Core (0.51.0):
     - yoga (= 0.51.0.React)
@@ -38,9 +42,12 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNVectorIcons (4.5.0):
+    - React
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -58,21 +65,28 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 EXTERNAL SOURCES:
+  BVLinearGradient:
+    :path: ../node_modules/react-native-linear-gradient
   React:
     :path: ../node_modules/react-native
   react-native-mapbox-gl:
     :path: ../node_modules/@mapbox/react-native-mapbox-gl
+  RNVectorIcons:
+    :path: ../node_modules/react-native-vector-icons
   yoga:
     :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
 SPEC CHECKSUMS:
+  BVLinearGradient: 4b3f3bdf1ac1a52a5ef5e65c9585d793a7c3f825
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   react-native-mapbox-gl: 99ef75f9c41db4af93513c813cb4591f1c1a35e8
+  RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 8e412df9419f92d51c55c48280d14052a6782026
+PODFILE CHECKSUM: 1d09a9b956b0df6c35f33ad1c89399f191b66436
 
 COCOAPODS: 1.4.0

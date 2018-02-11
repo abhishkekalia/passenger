@@ -1,0 +1,74 @@
+{  
+   "type":"FeatureCollection",
+   "features":[  
+      {
+      "id": "1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.189340, 
+          5.595885
+        ]
+      },
+      "properties": {
+        "name": "Roman Ridge",
+        "phoneFormatted": "E201",
+        "addressFormatted": "Roman Ridge, Accra, Ghana",
+        "hoursFormatted": "7 AM - 9 PM"
+      },
+      "busses": [
+        {
+          "profile_id": "786",
+          "stops": []
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.170682, 
+          5.608908
+        ]
+      },
+      "properties": {
+        "name": "Airport Road",
+        "phoneFormatted": "E209",
+        "addressFormatted": "Airport Road, Accra, Ghana",
+        "hoursFormatted": "7 AM - 9 PM"
+      },
+      "busses": [
+        {
+          "profile_id": "786",
+          "stops": [1]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.180005,
+          5.649406
+        ]
+      },
+      "properties": {
+        "name": "University Of Ghana",
+        "phoneFormatted": "E000",
+        "addressFormatted": "University Of Ghana, Accra, Ghana",
+        "hoursFormatted": "8 AM - 9 PM"
+      },
+      "busses": [
+        {
+          "profile_id": "786",
+          "stops": [1,2]
+        }
+      ]
+    }
+   ]
+}
