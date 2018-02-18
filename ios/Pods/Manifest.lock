@@ -4,12 +4,18 @@ PODS:
   - React (0.51.0):
     - React/Core (= 0.51.0)
   - react-native-mapbox-gl (6.0.3-rc1)
+  - React/BatchedBridge (0.51.0):
+    - React/Core
+    - React/cxxreact_legacy
   - React/Core (0.51.0):
     - yoga (= 0.51.0.React)
+  - React/cxxreact_legacy (0.51.0):
+    - React/jschelpers_legacy
   - React/DevSupport (0.51.0):
     - React/Core
     - React/RCTWebSocket
   - React/fishhook (0.51.0)
+  - React/jschelpers_legacy (0.51.0)
   - React/RCTActionSheet (0.51.0):
     - React/Core
   - React/RCTAnimation (0.51.0):
@@ -49,6 +55,7 @@ PODS:
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)
+  - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -87,6 +94,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 1d09a9b956b0df6c35f33ad1c89399f191b66436
+PODFILE CHECKSUM: d0c63329a1ee5b0327235ddba208232a38dbacbf
 
 COCOAPODS: 1.4.0

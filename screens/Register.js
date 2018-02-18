@@ -29,8 +29,8 @@ export default class Register extends Component<{}> {
   }
   
   _handleRegisterProcess= () => {
-      //this.props.navigation.navigate('Register');
-      AlertIOS.alert("Sending "+ this.state.phoneNumber)
+      this.props.navigation.navigate('Verification', { phoneNumber: this.state.phoneNumber });
+      //AlertIOS.alert("Sending "+ this.state.phoneNumber)
   }
 
   changeText(newText) {

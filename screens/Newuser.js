@@ -19,14 +19,22 @@ export default class Newuser extends Component<{}> {
 
   }
   _handleLogin= () => {
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('Dashboard');
     //AlertIOS.alert("Not Implemented Yet!")
   }
+
+  goToBus= () => {
+    this.props.navigation.navigate('BusApp');
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.rowbuttons}>
           <View style={{flex:1}}>
+              <Text style={styles.confirmText} onPress={this.goToBus}>
+                Go To Bus App
+              </Text>
               <TouchableHighlight
                 style={styles.submit}
                 onPress={() => this._handleRegister(this)}
@@ -36,12 +44,11 @@ export default class Newuser extends Component<{}> {
               <Text style={styles.confirmText}>
                 Enter SMS Code Confirmation
               </Text>
-
               <TouchableHighlight
                 style={styles.login}
                 onPress={() => this._handleLogin(this)}
                 underlayColor='#ffffff'>
-                  <Text style={styles.loginText}>Login</Text>
+                  <Text style={styles.loginText}>Dashboard</Text>
               </TouchableHighlight>
             </View>
         </View>  

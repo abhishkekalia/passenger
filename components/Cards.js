@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 30,
+    top: 50,
     zIndex: 10,
   },
   slideStyle: {
@@ -24,9 +24,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   slideTopRow: {
-    flex: 0.60,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    flex: 1,
+    borderRadius: 10,
     flexDirection: 'row',
     paddingVertical: 20,
     paddingHorizontal: 14,
@@ -111,7 +110,7 @@ class Cards extends React.Component {
   };
 
   static defaultProps = {
-    itemHeight: 150,
+    itemHeight: 75,
   };
 
   constructor (props) {
@@ -158,9 +157,9 @@ class Cards extends React.Component {
     return (
       <View key={feature.id} style={style}>
         <View style={styles.slideStyle}>
-          <View style={[styles.slideTopRow, { backgroundColor: this.props.theme.primaryColor }]}>
+          
+          <View style={[styles.slideTopRow, { backgroundColor: '#45AAE9'}]}>
             
-
             <View style={styles.slideMeta}>
               <View style={styles.slideMetaRow}>
                 <Text style={styles.header}>{props.name}</Text>
@@ -177,17 +176,7 @@ class Cards extends React.Component {
             </View>
           </View>
 
-          <View style={styles.slideBottomRow}>
-            <View>
-              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>Hours</Text>
-              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>{props.hoursFormatted}</Text>
-            </View>
-
-            <View>
-              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor, textAlign: 'right' }]}>Bus Stop</Text>
-              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>{props.phoneFormatted}</Text>
-            </View>
-          </View>
+          
         </View>
       </View>
     );

@@ -37,7 +37,7 @@ module.exports = StyleSheet.create({
 	    paddingTop:20,
 	    paddingBottom:20,
 	    backgroundColor:'#3B5999',
-	    borderRadius:30,
+	    borderRadius:22,
 	    //borderWidth: 1,
 	    //borderColor: '#fff'
 	  },
@@ -53,7 +53,7 @@ module.exports = StyleSheet.create({
 	    paddingTop:20,
 	    paddingBottom:20,
 	    backgroundColor:'#FFFFFF',
-	    borderRadius:30,
+	    borderRadius:22,
 	    //borderWidth: 1,
 	    //borderColor: '#fff'
 	  },

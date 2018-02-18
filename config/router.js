@@ -6,6 +6,8 @@ import Newuser from '../screens/Newuser';
 import Register from '../screens/Register';
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
+import BusApp from '../screens/BusApp';
+import Verification from '../screens/Verification';
 
 export const Tabs = TabNavigator({
   Newuser: {
@@ -30,35 +32,11 @@ export const Tabs = TabNavigator({
   },);
 
 export const FeedStack = StackNavigator({
-    Dashboard: {
-    screen: Dashboard,
-    navigationOptions: ({ navigation }) => ({
-      //title: `${navigation.state.params.name.toUpperCase()}`,
-      title: `Dashboard`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#5F514B',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
-    }),
-  },
   Newuser: {
     screen: Newuser,
     navigationOptions: {
       title: 'Smart Transit',
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#8D8882',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
+      header: false,
     },
   },
   Register: {
@@ -66,6 +44,7 @@ export const FeedStack = StackNavigator({
     navigationOptions: ({ navigation }) => ({
       //title: `${navigation.state.params.name.toUpperCase()}`,
       title: `Register`,
+      headerVisible: false,
       headerTintColor: '#ffffff',
       headerStyle: {
         backgroundColor: '#222222',
@@ -93,7 +72,56 @@ export const FeedStack = StackNavigator({
       },
     }),
   },
-
+  Dashboard: {
+    screen: Dashboard,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      header: false,
+      title: `Dashboard`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+        //borderBottomColor: '#ffffff',
+        //borderBottomWidth: 3,
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
+  Verification: {
+    screen: Verification,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      title: `Verification`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#3B5999',
+        //borderBottomColor: '#ffffff',
+        //borderBottomWidth: 3,
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
+  BusApp: {
+    screen: BusApp,
+    navigationOptions: ({ navigation }) => ({
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      title: `BusApp`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+        //borderBottomColor: '#ffffff',
+        //borderBottomWidth: 3,
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
 },
 {
     tabBarPosition: 'bottom',

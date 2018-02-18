@@ -1,35 +1,24 @@
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoic3VoYWlsd2FraWwiLCJhIjoiY2pkNG85aGd6NGpyejJ5bzV5ZHBtM2tvMCJ9.jHWo8YAjscitA5eIz9oCNA'
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import MapboxGL from '@mapbox/react-native-mapbox-gl'; // 6.0.3-rc1
 MapboxGL.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 import React, { Component } from 'react';
 import {
   Platform,
-  StyleSheet,
   Text,
   View,
-  Modal,
-  FlatList,
-  Image,
-  TouchableOpacity,
   StatusBar,
-  TouchableHighlight,
-  AlertIOS,
-  Dimensions,
-  TextInput,
   Animated
 } from 'react-native';
-import { Button } from 'react-native-elements';
-import io from 'socket.io-client';
-import Moment from 'react-moment';
-import 'moment-timezone';
-
+import { NavigationActions } from 'react-navigation'; // 1.0.3
+import io from 'socket.io-client'; // 2.0.4
+import 'moment-timezone'; // 0.5.14
+import "moment"; // 2.20.1
 import MappingKit from './MappingKit';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient'; // 2.4.0
+import Icon from 'react-native-vector-icons/MaterialIcons'; // 4.5.0
 
-import places from '../assets/places.json';
-import busCol from '../assets/busses.json';
+import busStops from '../assets/places.json';
 
 import {
   blueTheme,
@@ -37,6 +26,13 @@ import {
 } from './themes';
 
 const IS_IOS = Platform.OS === 'ios';
+var styles = require('./DashboardStyles');
+const LATITUDE = 5.639344;
+const LONGITUDE = -0.243016;
+
+const PROFILEID = '786';
+const socketURL = 'https://smarttransit-dev-map-api.herokuapp.com/v1/socket'
+
 const ThemeList = [
   {
     name: 'Blue Theme',
@@ -50,28 +46,6 @@ const ThemeList = [
   }
 ];
 
-var styles = require('./DashboardStyles');
-
- 
-const LATITUDE = 5.639344; 
-const LONGITUDE = -0.243016;
-
-const PROFILEID = '786';
-const socketURL = 'https://smarttransit-dev-map-api.herokuapp.com/v1/socket'
-
-
-export const theme = new MappingKit.Theme({
-  icon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
-  activeIcon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
-  styleURL: MapboxGL.StyleURL.Light,
-  primaryColor: `#A35BCD`,
-  primaryDarkColor: '#5D39BA',
-  directionsLineColor: '#987DDF',
-  cardIcon: {name: 'arrow-right', type: 'octicon', color: '#083045', size: 40 },
-  cardTextColor: '#6A159B',
-  accentColor: '#C7A8D9',
-});
-
 export default class Dashboard extends Component<{}> {
   constructor() {
     super();
@@ -80,11 +54,9 @@ export default class Dashboard extends Component<{}> {
       //alert('connected!');
     });
 
-    this.onDismiss = this.onDismiss.bind(this);
-
     this.state = {
       isGranted: IS_IOS,
-      activeTheme: ThemeList[0].theme,
+      busStopTheme: ThemeList[0].theme,
       busTheme: ThemeList[1].theme,
       initialLocation: [LONGITUDE,LATITUDE],
 
@@ -95,7 +67,10 @@ export default class Dashboard extends Component<{}> {
       ],
       mycoordinates: [LONGITUDE, LATITUDE],
       busses: [],
-      busListWrap: {},
+      busListCollection: {
+              type:"FeatureCollection",
+              features:[]
+            },
       sendObj: {
         profileid: '',
         lat: '',
@@ -108,7 +83,7 @@ export default class Dashboard extends Component<{}> {
 
     this._scaleIn = null;
     this._scaleOut = null;
-    this.onPress = this.onPress.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
 
   }
 
@@ -120,26 +95,17 @@ export default class Dashboard extends Component<{}> {
     MapboxGL.setAccessToken(MAPBOX_ACCESS_TOKEN);
   }
 
-  onDismiss () {
+  onDismiss() {
     StatusBar.setBarStyle('dark-content');
-    this.setState({ activeTheme: null, busTheme: null });
-  }
+    this.setState({ busStopTheme: null, busTheme: null });
 
-
-  onPress (feature) {
-    this.setState({
-          mycoordinates:feature.geometry.coordinates,
-          sendObj: {
-              profileid: PROFILEID,
-              lat: feature.geometry.coordinates[0], 
-              long: feature.geometry.coordinates[1],
-              tripid: '100',
-              label: 'Hola Bus'
-            }
-          }, 
-          function(){
-            this.socket.emit('/geo-location/transportation-profile/update', this.state.sendObj)
-          })
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Newuser'})
+      ]
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   onAnnotationSelected (activeIndex, feature) {
@@ -152,7 +118,7 @@ export default class Dashboard extends Component<{}> {
     this.setState({ activeAnnotationIndex: activeIndex });
 
     if (this.state.previousActiveAnnotationIndex !== -1) {
-      //this._map.moveTo(feature.geometry.coordinates, 500);
+      this._map.moveTo(feature.geometry.coordinates, 500);
     }
   }
 
@@ -172,10 +138,9 @@ export default class Dashboard extends Component<{}> {
   componentDidMount() {
     const socket = this.socket;
     if (!socket) return;
-    socket.on('disconnect', () => alert('You have been disconnected.'));
+    //socket.on('disconnect', () => alert('You have been disconnected.'));
 
      this.socket.on('/geo-location/transportation-profile/subscribe', (locationState) => {
-        var busses = [];
         var busList = [];
         for (var key in locationState) {
             if (locationState.hasOwnProperty(key)) {
@@ -195,61 +160,63 @@ export default class Dashboard extends Component<{}> {
                     ]
                   },
                   properties: {
-                    name: innerObj['label'],
-                    phoneFormatted: innerObj['tripid'],
-                    addressFormatted: "None",
-                    hoursFormatted: "10 AM - 9 PM"
+                    label: innerObj['label'],
+                    tripid: innerObj['tripid'],
+                    profileid: innerObj['profileid'],
                   }
                 }
 
-              var busObj = {
-                title: innerObj['label'],
-                coordinates: {
-                  latitude: (isNaN(lat) ? 0 : lat), 
-                  longitude: (isNaN(lon) ? 0 : lon) 
-                },
-              }
-              busses.push(busObj);
               busList.push(busObject);
             }
         }
-        var busListWrap = {  
+
+        //DELETE ONLY TESTING
+        var busObject1 = {
+                          id: '999',
+                          type: "Feature",
+                          geometry: {
+                            type: "Point",
+                            coordinates: [LONGITUDE + 0.01,LATITUDE]
+                          },
+                          properties: {
+                            label: 'KKK',
+                            tripid: 222,
+                            profileid: "999",
+                          }
+                        }
+        busList.push(busObject1);
+        //DELETE
+
+
+        var busListCol = {  
            type:"FeatureCollection",
             features:busList
           }
 
-        this.setState({busses: busses, busListWrap: busListWrap })
-
-        
+        this.setState({busListCollection: busListCol })
         
       });
   }
 
   componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   renderMap () {
-    if (!this.state.activeTheme) {
+    if (!this.state.busStopTheme) {
       return null;
     }
-
     StatusBar.setBarStyle('light-content');
-
     return (
-      <Modal
-        visible={!!this.state.activeTheme}
-        animationType='slide'
-        transparent
-        onRequestClose={this.onDismiss}>
         <View style={styles.matchParent}>
           <MappingKit.MapView
             simulateUserLocation
             accessToken={MAPBOX_ACCESS_TOKEN}
-            theme={this.state.activeTheme}
+            theme={this.state.busStopTheme}
             bustheme={this.state.busTheme}
             centerCoordinate={this.state.initialLocation}
-            featureCollection={places}
-            busCollection={this.state.busListWrap}
+            featureCollection={busStops}
+            busCollection={this.state.busListCollection}
             zoomLevel={13}
             style={styles.matchParent} />
 
@@ -263,99 +230,18 @@ export default class Dashboard extends Component<{}> {
               size={28}
               onPress={this.onDismiss}
               style={styles.backArrow}
-              color='white' />
-
-            <Text style={styles.mapHeaderText}>Start Your Trip</Text>
+              color='#45AAE9' />
           </View>
         </View>
-      </Modal>
+     
     );
   }
-
-  renderMyBus () {
-    const item = (
-        <MapboxGL.PointAnnotation
-          key='pointAnnotationBus'
-          id='pointAnnotationBus'
-          title='Bus'
-          coordinate={this.state.mycoordinates}>
-          <View style={styles.annotationContainer}>
-            <View style={styles.annotationFillMy} />
-          </View>
-          <MapboxGL.Callout title={PROFILEID} />
-        </MapboxGL.PointAnnotation>
-      );
-    return item;
-  }
-
-  renderBusses () {   
-    const items = [];
-    var busses = this.state.busses;
-      for (let i = 0; i < busses.length; i++) {
-        if(busses[i]['coordinates']['longitude'] < 0){
-          const coordinate = [busses[i]['coordinates']['longitude'], busses[i]['coordinates']['latitude'] ]
-          const title = busses[i]['title'];
-          const id = `pointAnnotation${i}`;
-
-          let animationStyle = {};
-          if (i === this.state.activeAnnotationIndex) {
-            animationStyle.transform = [{ scale: this._scaleIn }];
-          } else if (i === this.state.previousActiveAnnotationIndex) {
-            animationStyle.transform = [{ scale: this._scaleOut }];
-          }
-
-          items.push(
-            <MapboxGL.PointAnnotation
-              key={id}
-              id={id}
-              title='Test'
-              selected={i === 0}
-              onSelected={(feature) => this.onAnnotationSelected(i, feature)}
-              onDeselected={() => this.onAnnotationDeselected(i)}
-              coordinate={coordinate}>
-
-              <View style={styles.annotationContainer}>
-                <Animated.View style={[styles.annotationFill, animationStyle]} />
-              </View>
-              <MapboxGL.Callout title={title} />
-            </MapboxGL.PointAnnotation>
-          );
-        }
-      }
-    return items;
-  }
-
 
   render() {
     return (
       <View style={styles.container}>
-     
-          <View style={{flex: 1}} >
-            <Text style={styles.paragraph}>
-              Bus App 
-            </Text>
-            <MapboxGL.MapView
-              ref={(c) => this._map = c}
-              zoomLevel={15}
-              onPress={this.onPress}
-              onDidFinishLoadingMap={this.onDidFinishLoadingMap}
-              centerCoordinate={this.state.mycoordinates}
-              style={{flex:1}}
-              styleURL='mapbox://styles/suhailwakil/cjd8f22c28yv72sp43vj765xy'
-              >
-              {this.renderMyBus()}
-            </MapboxGL.MapView>
-            <View>
-              {this.renderMap()}
-            </View>
-          </View>
-
-
-
-          
-
+          {this.renderMap()}
       </View>
     );
   }
 }
-

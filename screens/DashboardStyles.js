@@ -110,12 +110,12 @@ module.exports = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 120,
+    height: 40,
     backgroundColor: 'transparent',
   },
   mapGradient: {
     flex: 1,
-    height: 120,
+    height: 40,
   },
   mapHeaderText: {
     fontSize: 24,
@@ -126,7 +126,7 @@ module.exports = StyleSheet.create({
   },
   backArrow: {
     position: 'absolute',
-    top: 32,
+    top: 20,
     left: 24,
   },
 });

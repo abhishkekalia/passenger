@@ -9,6 +9,8 @@ import greenUnselectedMoney from '../assets/green_unselected_money.png';
 import greenSelectedMoney from '../assets/green_selected_money.png';
 import grayUnselectedBike from '../assets/white_unselected_bike.png';
 import graySelectedBike from '../assets/gray_selected_bike.png';
+import whiteUnselectedBike from '../assets/white_unselected_bike.png';
+
 import whiteUnselectedHouse from '../assets/white_unselected_house.png';
 import whiteSelectedHouse from '../assets/gray_selected_house.png';
 
@@ -46,7 +48,7 @@ export const blueTheme = new MappingKit.Theme({
 });
 
 export const blueThemeBus = new MappingKit.Theme({
-  icon: graySelectedBike,
+  icon: whiteUnselectedBike,
   activeIcon: graySelectedBike,
   styleURL: 'mapbox://styles/mapbox/cj7bwwv3caf7l2spgukxm8bwv',
   primaryColor: '#45AAE9',

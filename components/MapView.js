@@ -9,8 +9,10 @@ import CurrentLocation from './CurrentLocation';
 import Places from './Places';
 import Busses from './Busses';
 import Cards from './Cards';
+import CardsBusses from './CardsBusses';
 import Theme from './Theme';
 import DirectionType from '../enums/DirectionType';
+import SlidingUpPanel from 'rn-sliding-up-panel';
 
 import bbox from '@turf/bbox';
 
@@ -92,6 +94,7 @@ class MapView extends React.Component {
       destination: destination,
       stops: stops,
       centerCoordinate: props.centerCoordinate,
+      thisBus: {},
     };
 
     this.onPress = this.onPress.bind(this);
@@ -102,7 +105,6 @@ class MapView extends React.Component {
     this.onRegionWillChange = this.onRegionWillChange.bind(this);
 
     ret = this.findStop("3");
-    console.log("LOLI " +JSON.stringify(ret))
 
   }
 
@@ -129,6 +131,7 @@ class MapView extends React.Component {
       Places.UnselectedSymbolID,
     ]);
 
+    
     let feature = null;
     if (hitFeatureCollection.features.length > 0) {
       feature = hitFeatureCollection.features[0];
@@ -147,6 +150,12 @@ class MapView extends React.Component {
         }
       }
     }
+  }
+
+  onBusClick = (data) => {
+    this.setState({thisBus: data}, function(){
+      this.child.openModal()
+    });
   }
 
   onActiveIndexChange (index) {
@@ -276,6 +285,7 @@ class MapView extends React.Component {
 
           <Busses
             busCollection={this.props.busCollection}
+            onBusClick={this.onBusClick}
             {...this.busStyle} />
 
           <CurrentLocation
@@ -291,6 +301,11 @@ class MapView extends React.Component {
           data={this.props.featureCollection.features}
           onActiveIndexChange={this.onActiveIndexChange}
           activeIndex={this.state.activeIndex} />
+
+        <CardsBusses
+          data={this.state.thisBus}
+          onRef={ref => (this.child = ref)}
+         />
       </View>
     );
   }

@@ -491,3 +491,42 @@ export default class Dashboard extends Component<{}> {
   }
 }
 
+
+
+//ADDITION
+renderBusses () {   
+    const items = [];
+    var busses = this.state.busses;
+      for (let i = 0; i < busses.length; i++) {
+        if(busses[i]['coordinates']['longitude'] < 0){
+          const coordinate = [busses[i]['coordinates']['longitude'], busses[i]['coordinates']['latitude'] ]
+          const title = busses[i]['title'];
+          const id = `pointAnnotation${i}`;
+
+          let animationStyle = {};
+          if (i === this.state.activeAnnotationIndex) {
+            animationStyle.transform = [{ scale: this._scaleIn }];
+          } else if (i === this.state.previousActiveAnnotationIndex) {
+            animationStyle.transform = [{ scale: this._scaleOut }];
+          }
+
+          items.push(
+            <MapboxGL.PointAnnotation
+              key={id}
+              id={id}
+              title='Test'
+              selected={i === 0}
+              onSelected={(feature) => this.onAnnotationSelected(i, feature)}
+              onDeselected={() => this.onAnnotationDeselected(i)}
+              coordinate={coordinate}>
+
+              <View style={styles.annotationContainer}>
+                <Animated.View style={[styles.annotationFill, animationStyle]} />
+              </View>
+              <MapboxGL.Callout title={title} />
+            </MapboxGL.PointAnnotation>
+          );
+        }
+      }
+    return items;
+  }

@@ -23,7 +23,7 @@ class Busses extends React.Component {
     /**
      * Active ID of feature
      */
-    //activeID: PropTypes.any,
+    activeID: PropTypes.any,
 
     /**
      * Active feature index
@@ -34,6 +34,8 @@ class Busses extends React.Component {
      * Override any default styles on the inactive marker layer
      */
     style: PropTypes.any,
+    onBusClick: PropTypes.func,
+
 
     /**
      * Override any default styles on the active marker layer
@@ -52,6 +54,7 @@ class Busses extends React.Component {
     this.state = {
       //activeIndex: props.activeIndex,
       //activeID: props.activeID,
+      activeID: 0
     };
   }
 
@@ -68,12 +71,26 @@ class Busses extends React.Component {
     if (!this.props.busCollection) {
       return null;
     }
+
     return (
-      <MapboxGL.ShapeSource id='busses' shape={this.props.busCollection} >
+      <MapboxGL.ShapeSource id='busses' shape={this.props.busCollection} 
+          onPress={(e) => {
+            this.props.onBusClick(e.nativeEvent.payload.properties);
+            this.setState({activeID: e.nativeEvent.payload.properties.profileid})
+            //{"phoneFormatted":"100","addressFormatted":"786","hoursFormatted":"10 AM - 9 PM","name":"Hola Bus"}
+          }}
+      >
            <MapboxGL.SymbolLayer
             id={Busses.UnselectedSymbolID}
-            //filter={['!=', '$id', this.state.activeID]}
+            filter={['!=', '$id', this.state.activeID]}
             style={[styles.icon, this.props.style]} />
+
+          <MapboxGL.SymbolLayer
+            id={Busses.SelectedSymbolID}
+            //aboveLayerID={Places.UnselectedSymbolID}
+            filter={['==', '$id', this.state.activeID]}
+            style={[styles.icon, this.props.activeStyle]} />
+
         </MapboxGL.ShapeSource>
 
     
