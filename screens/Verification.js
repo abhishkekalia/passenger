@@ -9,6 +9,7 @@ import {
   Icon,
   AlertIOS
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
 var styles = require('./VerificationStyles.js');
 
@@ -22,11 +23,21 @@ export default class Verification extends Component<{}> {
   }
 
   _handleRegister= () => {
-    this.props.navigation.navigate('Register');
-
+    this.props.navigation.navigate('MainDrawerNavigator');
   }
+
   _handleLogin= () => {
-    this.props.navigation.navigate('Dashboard');
+    
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'MainDrawerNavigator'})
+      ]
+    })
+    this.props.navigation.dispatch(resetAction)
+    
+    
+    //this.props.navigation.navigate('Dashboard');
     //AlertIOS.alert("Not Implemented Yet!")
   }
 

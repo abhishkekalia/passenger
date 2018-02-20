@@ -19,6 +19,7 @@ import LinearGradient from 'react-native-linear-gradient'; // 2.4.0
 import Icon from 'react-native-vector-icons/MaterialIcons'; // 4.5.0
 
 import busStops from '../assets/places.json';
+import Header from './Header';
 
 import {
   blueTheme,
@@ -106,6 +107,10 @@ export default class Dashboard extends Component<{}> {
       ]
     })
     this.props.navigation.dispatch(resetAction)
+  }
+
+  drawerNav= () => {
+    this.props.navigation.navigate("DrawerOpen")
   }
 
   onAnnotationSelected (activeIndex, feature) {
@@ -221,16 +226,7 @@ export default class Dashboard extends Component<{}> {
             style={styles.matchParent} />
 
           <View style={styles.mapHeader}>
-            <LinearGradient
-              style={styles.mapGradient}
-              colors={['black', 'transparent']} />
-
-            <Icon
-              name='keyboard-backspace'
-              size={28}
-              onPress={this.onDismiss}
-              style={styles.backArrow}
-              color='#45AAE9' />
+            <Header onPress={this.drawerNav}/>
           </View>
         </View>
      

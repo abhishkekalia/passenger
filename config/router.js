@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import Newuser from '../screens/Newuser';
@@ -8,42 +8,106 @@ import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import BusApp from '../screens/BusApp';
 import Verification from '../screens/Verification';
+import SideMenu from '../screens/SideMenu';
 
-export const Tabs = TabNavigator({
-  Newuser: {
-    screen: Newuser,
-    navigationOptions: {
-      tabBarLabel: 'New User',
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
-    },
+import Header from '../screens/Header';
+
+
+export const MainDrawerNavigator = DrawerNavigator({
+  Dashboard: {
+    screen: Dashboard,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      drawerLockMode: 'locked-closed',
+      header: false,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
   },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      tabBarLabel: 'Register',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
-    },
+
+  BusApp: {
+    screen: BusApp,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed',
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      title: `BusApp`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
+  Header: {
+    screen: Header,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      drawerLockMode: 'locked-closed',
+      header: false,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
   },
 },
 {
-    tabBarPosition: 'bottom',
-    swipeEnabled: true,
-    animationEnabled: true,
-  },);
+  contentComponent: SideMenu,
+  drawerWidth: 300,
+  drawerPosition: 'left',
+  contentOptions: {
+     activeTintColor: '#e91e63',
+     style: {
+       flex: 1,
+       paddingTop: 15,
+     }
+   }
+ },
+ );
 
-export const FeedStack = StackNavigator({
+
+export const STNavigation = StackNavigator({
   Newuser: {
     screen: Newuser,
     navigationOptions: {
       title: 'Smart Transit',
       header: false,
+      gesturesEnabled: false,
     },
+  },
+  Verification: {
+    screen: Verification,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      title: `Verification`,
+      gesturesEnabled: false,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#3B5999',
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
   },
   Register: {
     screen: Register,
     navigationOptions: ({ navigation }) => ({
       //title: `${navigation.state.params.name.toUpperCase()}`,
       title: `Register`,
+      gesturesEnabled: false,
       headerVisible: false,
       headerTintColor: '#ffffff',
       headerStyle: {
@@ -55,6 +119,14 @@ export const FeedStack = StackNavigator({
         fontSize: 18,
       },
     }),
+  },
+  MainDrawerNavigator: { 
+    screen: MainDrawerNavigator,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      header: false,
+      gesturesEnabled: false,
+    })
   },
   Login: {
     screen: Login,
@@ -72,59 +144,8 @@ export const FeedStack = StackNavigator({
       },
     }),
   },
-  Dashboard: {
-    screen: Dashboard,
-    headerMode: 'screen',
-    navigationOptions: ({ navigation }) => ({
-      //title: `${navigation.state.params.name.toUpperCase()}`,
-      header: false,
-      title: `Dashboard`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#5F514B',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
-    }),
-  },
-  Verification: {
-    screen: Verification,
-    headerMode: 'screen',
-    navigationOptions: ({ navigation }) => ({
-      title: `Verification`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#3B5999',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
-    }),
-  },
-  BusApp: {
-    screen: BusApp,
-    navigationOptions: ({ navigation }) => ({
-      //title: `${navigation.state.params.name.toUpperCase()}`,
-      title: `BusApp`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#5F514B',
-        //borderBottomColor: '#ffffff',
-        //borderBottomWidth: 3,
-      },
-      headerTitleStyle: {
-        fontSize: 18,
-      },
-    }),
-  },
-},
-{
-    tabBarPosition: 'bottom',
-    swipeEnabled: true,
-    animationEnabled: true,
-  },);
+
+});
+
+
+

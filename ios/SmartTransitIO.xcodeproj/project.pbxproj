@@ -1154,7 +1154,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 395ETR588S;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1169,7 +1170,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "59b47fcf-d2cf-476e-aa86-ef5ba5af9c95";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartTransitIO.app/SmartTransitIO";
 			};
 			name = Debug;
@@ -1178,7 +1179,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 395ETR588S;
@@ -1190,7 +1192,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "59b47fcf-d2cf-476e-aa86-ef5ba5af9c95";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartTransitIO.app/SmartTransitIO";
 			};
 			name = Release;
@@ -1201,10 +1203,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 395ETR588S;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = SmartTransitIO/Info.plist;
@@ -1216,8 +1219,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smarttransitApp;
 				PRODUCT_NAME = SmartTransitIO;
-				PROVISIONING_PROFILE = "f483436f-5c2a-4294-b6d3-c25bf8c6580c";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Deployment_STIO";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1228,9 +1232,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 395ETR588S;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = SmartTransitIO/Info.plist;
@@ -1242,8 +1247,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smarttransitApp;
 				PRODUCT_NAME = SmartTransitIO;
-				PROVISIONING_PROFILE = "f483436f-5c2a-4294-b6d3-c25bf8c6580c";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Deployment_STIO";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1267,7 +1273,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 395ETR588S;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1312,7 +1318,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexander Osei-Gyau (395ETR588S)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 395ETR588S;
 				ENABLE_NS_ASSERTIONS = NO;

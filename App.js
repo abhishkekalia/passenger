@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { FeedStack } from './config/router';
+import { STNavigation } from './config/router';
 import {
   Platform,
   StyleSheet,
@@ -17,7 +17,7 @@ import {
 export default class App extends Component<{}> {
   render() {
     return (
-      <FeedStack />
+      <STNavigation />
     );
   }
 }

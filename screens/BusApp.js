@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import io from 'socket.io-client'; // 2.0.4
 import 'moment-timezone'; // 0.5.14
+import Header from './Header';
 
 import MappingKit from './MappingKit';
 
@@ -214,6 +215,10 @@ export default class BusApp extends Component<{}> {
     this.socket.disconnect();
   }
   
+  drawerNav= () => {
+    this.props.navigation.navigate("DrawerOpen")
+  }
+
   renderMyBus () {
     const item = (
         <MapboxGL.PointAnnotation
@@ -246,6 +251,10 @@ export default class BusApp extends Component<{}> {
               >
               {this.renderMyBus()}
             </MapboxGL.MapView>
+
+            <View style={styles.mapHeader}>
+              <Header onPress={this.drawerNav}/>
+            </View>
           </View>
       </View>
     );

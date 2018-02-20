@@ -141,6 +141,7 @@ class CardsBusses extends React.Component {
 
   _handlePress() {
     console.log('Pressed!');
+    alert("Comming soon!")
   }
   
   render () {
