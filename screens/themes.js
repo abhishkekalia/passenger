@@ -7,9 +7,12 @@ import blueUnselectedIceCream from '../assets/blue_unselected_ice_cream.png';
 import blueSelectedIceCream from '../assets/blue_selected_ice_cream.png';
 import greenUnselectedMoney from '../assets/green_unselected_money.png';
 import greenSelectedMoney from '../assets/green_selected_money.png';
-import grayUnselectedBike from '../assets/white_unselected_bike.png';
-import graySelectedBike from '../assets/gray_selected_bike.png';
-import whiteUnselectedBike from '../assets/white_unselected_bike.png';
+
+import grayUnselectedBike from '../assets/bus-icon.png';
+
+//Using
+import graySelectedBike from '../assets/bus-icon.png';
+import whiteUnselectedBike from '../assets/bus-icon_2.png';
 
 import whiteUnselectedHouse from '../assets/white_unselected_house.png';
 import whiteSelectedHouse from '../assets/gray_selected_house.png';
@@ -20,8 +23,9 @@ import houseIcon from '../assets/house_icon.png';
 import moneyIcon from '../assets/money_bag_icon.png';
 import iceCreameIcon from '../assets/ice_cream_icon.png';
 
-import blueUnselectedHouse from '../assets/blue_unselected_house.png';
-import blueSelectedHouse from '../assets/blue_selected_house.png';
+//Using
+import blueUnselectedHouse from '../assets/busstop.png';
+import blueSelectedHouse from '../assets/busstop_2.png';
 
 export const purpleTheme = new MappingKit.Theme({
   icon: purpleUnselectedBurger,

@@ -4,17 +4,24 @@ var React = require('react-native');
 var {
   StyleSheet,
 } = React;
-const ANNOTATION_SIZE = 30;
+const ANNOTATION_SIZE = 20;
 module.exports = StyleSheet.create({
 	annotationContainer: {
 	    width: ANNOTATION_SIZE,
 	    height: ANNOTATION_SIZE,
 	    alignItems: 'center',
 	    justifyContent: 'center',
-	    backgroundColor: 'white',
+	    backgroundColor: '#6ECAF1',
 	    borderRadius: ANNOTATION_SIZE / 2,
 	    borderWidth: StyleSheet.hairlineWidth,
 	    borderColor: 'rgba(0, 0, 0, 0.45)',
+	  },
+	  annotationFillMy: {
+	    width: ANNOTATION_SIZE - 3,
+	    height: ANNOTATION_SIZE - 3,
+	    borderRadius: (ANNOTATION_SIZE - 3) / 2,
+	    backgroundColor: '#268DBA',
+	    transform: [{ scale: 0.6 }],
 	  },
 	  annotationFill: {
 	    width: ANNOTATION_SIZE - 3,
@@ -40,13 +47,7 @@ module.exports = StyleSheet.create({
 	    backgroundColor: 'orange',
 	    transform: [{ scale: 0.6 }],
 	  },
-	  annotationFillMy: {
-	    width: ANNOTATION_SIZE - 3,
-	    height: ANNOTATION_SIZE - 3,
-	    borderRadius: (ANNOTATION_SIZE - 3) / 2,
-	    backgroundColor: 'green',
-	    transform: [{ scale: 0.6 }],
-	  },
+	  
 	  container: {
 	    flex: 1,
 	    

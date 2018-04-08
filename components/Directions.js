@@ -170,7 +170,7 @@ class Directions extends React.Component {
       <MapboxGL.ShapeSource id='mapbox-directions-source' shape={this.state.directions.geometry}>
         <MapboxGL.LineLayer
           id='mapbox-directions-line'
-          belowLayerID={Places.UnselectedSymbolID}
+          //belowLayerID={Places.UnselectedSymbolID}
           style={[styles.directionsLine, this.props.style]} />
       </MapboxGL.ShapeSource>
     );

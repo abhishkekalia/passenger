@@ -4,9 +4,17 @@ import styles from './SideMenuStyles';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // 4.5.0
-
+import store from 'react-native-simple-store';
 
 class SideMenu extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        firstname: '',
+        nickName: '',
+      }
+      
+  }
   
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -24,6 +32,29 @@ class SideMenu extends Component {
     })
     this.props.navigation.dispatch(resetAction)
   }
+
+  componentDidMount () { 
+      this._getProfile(); 
+    } 
+    
+  async _getProfile () { 
+    store.get('userProfile')
+      .then((res) =>
+        { 
+          if(res !== null)
+            {
+              this.setState({
+                firstname: res.firstname,
+                nickName: res.nickName,
+              })
+            }
+        }
+      )   
+      .catch(error => {
+        console.error(error.message);
+      })
+    } 
+
   
   render () {
     return (
@@ -38,7 +69,7 @@ class SideMenu extends Component {
             <Icon underlayColor='#5F514B' name='face' type= 'Action' color= '#fff' size= {30}/>
           </View>
           <Text style={styles.welcome}>
-            Welcome Edmund
+            Welcome {this.state.nickName}
           </Text>
           <Text style={styles.categoryLabel}>
             Home
@@ -64,7 +95,7 @@ class SideMenu extends Component {
               Account
             </Text>
             <View style={styles.row}>
-              <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
+              <Text style={styles.rowLabel} onPress={this.navigateToScreen('Profile')}>
                 Edit Profile
               </Text>
             </View>

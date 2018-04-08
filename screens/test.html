@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Socket test</title>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <script type="application/javascript">
+          $( document ).ready(function() {
+            const adminSocket = io('/v1/socket')
+            console.log('connecting...')
+            $('#testDiv').html('connecting...')
+
+            adminSocket.on('/geo-location/transportation-profile/12334567778898654-33222/passengers/subscribe', (result) => {
+              console.log('subscribe result', result)
+              $('#testList').html('passengers on bus 12334567778898654-33222 at ' + new Date().toString() + ': ' + JSON.stringify(result))
+            })
+
+            setInterval(() => {
+              let dateObject = new Date()
+              console.log('sent update...')
+              adminSocket.emit('/geo-location/transportation-profile/update', {lat: '1233344', long: '2.345566', profileid: '12334567778898654-33222', label: 'achimota - circle'}, (result) => {
+                console.log('result', result)
+                $('#testDiv').html('Bus updated latlong at: ' + dateObject.toString() + ' with: ' + (result ? JSON.stringify(result) : 'success'))
+              })
+            }, 2000)
+
+            setInterval(() => {
+              let dateObject = new Date()
+              console.log('sent passenger update...')
+              adminSocket.emit('/geo-location/passenger-profile/update', {lat: '2.1249272', long: '2.2310936', profileid: '9273565472-2-33222', tripid: '23455-87654', transportationid: '12334567778898654-33222'}, (result) => {
+                console.log('passenger result', result)
+                $('#testDiv2').html('passenger updated latlong at: ' + dateObject.toString() + ' with: ' + (result ? JSON.stringify(result) : 'success'))
+              })
+            }, 2000)
+
+            adminSocket.on('/geo-location/passenger-profile/9273565472-2-33222/subscribe', (result) => {
+              $('#testList2').html('Passenger detected at ' + new Date().toString() + ': ' + JSON.stringify(result))
+            })
+          })
+        </script>
+    </head>
+    <body>
+        <h1>Websocket test</h1>
+        <p id="testDiv">About to update bus... </p>
+        <p id="testList">Waiting for buses...</p>
+        <p>&nbsp;</p>
+        <p id="testDiv2">About to update passenger... </p>
+        <p id="testList2">Waiting for passenger to monitor...</p>
+    </body>
+</html>

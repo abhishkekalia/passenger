@@ -10,7 +10,7 @@ import {
   AlertIOS,
 } from 'react-native';
 import { Button, Header, Icon, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-
+import Ripple from 'react-native-material-ripple';
 import Keyboard from './Keyboard'
 
 
@@ -48,12 +48,13 @@ export default class Register extends Component<{}> {
               {this.state.phoneNumber}
             </Text>
             <View style={styles.button}>
-              <TouchableHighlight
-                style={styles.submit}
-                onPress={() => this._handleRegisterProcess(this)}
-                underlayColor='#3B5999'>
-                  <Text style={styles.submitText}>Next</Text>
-              </TouchableHighlight>
+              <Ripple onPress={() => this._handleRegisterProcess(this)}>  
+                <TouchableHighlight
+                  style={styles.submit}
+                  underlayColor='#3B5999'>
+                    <Text style={styles.submitText}>Next</Text>
+                </TouchableHighlight>
+              </Ripple> 
             </View> 
           </View>
           <View style={styles.innerBot} >

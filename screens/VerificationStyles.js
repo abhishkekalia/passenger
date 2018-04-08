@@ -47,11 +47,7 @@ module.exports = StyleSheet.create({
 	      textAlign:'center',
 	  },
 	  login:{
-	    marginRight:20,
-	    marginLeft:20,
-	    marginTop:10,
-	    paddingTop:20,
-	    paddingBottom:20,
+	    padding:20,
 	    backgroundColor:'#FFFFFF',
 	    borderRadius:22,
 	    //borderWidth: 1,

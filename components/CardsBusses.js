@@ -5,6 +5,19 @@ import { View, ScrollView, Image } from 'react-native';
 
 import Modal from 'react-native-modalbox'; // 1.4.2
 import Button from 'react-native-button'; // 2.3.0
+import io from 'socket.io-client';
+
+const socketURL = 'https://smarttransit-dev-map-api.herokuapp.com/v1/socket'
+
+//PASSENGERS SENDS 
+const PASSENGERLATITUDE = 5.639344;
+const PASSENGERLONGITUDE = -0.243016;
+const PASSENGERPROFILEID = '888'; 
+const TRIPID = '102';
+const TRANSPORTATIONID = '666';
+//PASSENGERS SENDS
+
+
 
 const style = {
       backgroundColor: 'transparent',
@@ -123,9 +136,13 @@ class CardsBusses extends React.Component {
 
   constructor (props) {
     super(props);
+    
     this.state = {
-      
+      sendObj: {},
     };
+
+    this.connectToBus = this.connectToBus.bind(this);
+
   }
 
   componentDidMount() {
@@ -139,11 +156,32 @@ class CardsBusses extends React.Component {
     this.refs.modal.open();
   }
 
-  _handlePress() {
-    console.log('Pressed!');
-    alert("Comming soon!")
-  }
   
+  connectToBus(){
+    this.socket = io(socketURL);
+    this.socket.on('connect', () => {
+    });
+
+    this.setState({
+      sendObj: 
+        { lat: PASSENGERLATITUDE, 
+          long: PASSENGERLONGITUDE, 
+          profileid: PASSENGERPROFILEID, 
+          tripid: TRIPID, 
+          transportationid: TRANSPORTATIONID
+        }
+      }, 
+       function(){
+        console.log("BEFORE SENDING: "+ JSON.stringify(this.state.sendObj))
+          this.socket.emit('/geo-location/passenger-profile/update', this.state.sendObj, (result) => {
+                  //alert("You are connected to the bus!")
+          })
+        } 
+      )
+    }
+
+  
+
   render () {
     return (
         <Modal
@@ -180,7 +218,7 @@ class CardsBusses extends React.Component {
                   <Button
                     style={{fontSize: 18, color: '#45AAE9'}}
                     styleDisabled={{color: '#fff'}}
-                    onPress={() => this._handlePress()}>
+                    onPress={this.connectToBus}>
                     Confirm your trip 
                   </Button>
                 </View>

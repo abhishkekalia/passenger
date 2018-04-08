@@ -17,18 +17,21 @@ var styles = require('./HeaderStyles.js');
 class Header extends React.Component
 {
 
-  renderMap () {
+  renderHeader () {
     return (
         <View style={styles.matchParent}>
             <LinearGradient
               style={styles.mapGradient}
-              colors={['black', 'transparent']} />
+              colors={['black', 'transparent']}>
+              <Text style={styles.mapHeaderText}>{this.props.headerText}</Text>
+            </LinearGradient>
             <Icon
               name='menu'
               size={28}
               onPress={this.props.onPress}
               style={styles.backArrow}
-              color='#fff' />
+              color='#ccc' />
+              
         </View>
      
     );
@@ -36,7 +39,7 @@ class Header extends React.Component
   render() {
     return (
       <View style={styles.container}>
-          {this.renderMap()}
+          {this.renderHeader()}
       </View>
     );
   }

@@ -26,6 +26,7 @@ import {
   blueThemeBus
 } from './themes';
 
+
 const IS_IOS = Platform.OS === 'ios';
 var styles = require('./DashboardStyles');
 const LATITUDE = 5.639344;
@@ -224,6 +225,8 @@ export default class Dashboard extends Component<{}> {
             busCollection={this.state.busListCollection}
             zoomLevel={13}
             style={styles.matchParent} />
+
+
 
           <View style={styles.mapHeader}>
             <Header onPress={this.drawerNav}/>

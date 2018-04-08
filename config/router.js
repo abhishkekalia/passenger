@@ -9,6 +9,7 @@ import Dashboard from '../screens/Dashboard';
 import BusApp from '../screens/BusApp';
 import Verification from '../screens/Verification';
 import SideMenu from '../screens/SideMenu';
+import Profile from '../screens/Profile';
 
 import Header from '../screens/Header';
 
@@ -37,6 +38,21 @@ export const MainDrawerNavigator = DrawerNavigator({
       drawerLockMode: 'locked-closed',
       //title: `${navigation.state.params.name.toUpperCase()}`,
       title: `BusApp`,
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#5F514B',
+      },
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+    }),
+  },
+  Profile: {
+    screen: Profile,
+    navigationOptions: ({ navigation }) => ({
+      drawerLockMode: 'locked-closed',
+      //title: `${navigation.state.params.name.toUpperCase()}`,
+      title: `Profile`,
       headerTintColor: '#ffffff',
       headerStyle: {
         backgroundColor: '#5F514B',

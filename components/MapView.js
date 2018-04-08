@@ -8,7 +8,8 @@ import Directions from './Directions';
 import CurrentLocation from './CurrentLocation';
 import Places from './Places';
 import Busses from './Busses';
-import Cards from './Cards';
+//import Cards from './Cards';
+import Search from './Search';
 import CardsBusses from './CardsBusses';
 import Theme from './Theme';
 import DirectionType from '../enums/DirectionType';
@@ -19,6 +20,8 @@ import bbox from '@turf/bbox';
 const IS_ANDROID = Platform.OS === 'android';
 const BOUNDS_PADDING_SIDE = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(60) : 60;
 const BOUNDS_PADDING_BOTTOM = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(206) : 206;
+
+var styles = require('./MapViewStyles');
 
 class MapView extends React.Component {
   static propTypes = {
@@ -80,7 +83,7 @@ class MapView extends React.Component {
       const feature = this.props.featureCollection.features[0];
       
       if (feature) {
-        destination = feature.geometry.coordinates;
+        //destination = feature.geometry.coordinates;
         activeID = feature.id;
       }
     }
@@ -150,6 +153,13 @@ class MapView extends React.Component {
         }
       }
     }
+  }
+
+  onFindingDirections = (data) => {
+    //console.log("CHECKING "+JSON.stringify(data))
+    this.setState({destination: [data.lng,data.lat]}, function(){
+      //this.child.openModal()
+    });
   }
 
   onBusClick = (data) => {
@@ -250,6 +260,24 @@ class MapView extends React.Component {
     };
   }
 
+  renderPointAnnotation () {
+    if (!this.state.destination) {
+      return;
+    }
+    return (
+      <MapboxGL.PointAnnotation
+            key='pointAnnotationDest'
+            id='pointAnnotationDest'
+            title='Destination'
+            coordinate={this.state.destination}>
+            <View style={styles.annotationContainer}>
+              <View style={styles.annotationFillMy} />
+            </View>
+            {/*<MapboxGL.Callout title='{BUSPROFILEID}' />*/}
+          </MapboxGL.PointAnnotation>
+      )
+  }
+
   render () {
     let mockUserLocation = null;
     if (this.props.simulateUserLocation) {
@@ -263,25 +291,29 @@ class MapView extends React.Component {
           zoomLevel={this.props.zoomLevel}
           styleURL={this.props.theme.styleURL}
           centerCoordinate={this.state.centerCoordinate}
-          onPress={this.onPress}
+          //onPress={this.onPress}
+          //attributionEnabled={false}
+          logoEnabled={false}
+          animated={true}
           onRegionWillChange={this.onRegionWillChange}
           style={{ flex: 1 }}>
 
           {this.props.children}
+          {this.renderPointAnnotation()}
 
           <Directions
             accessToken={this.props.accessToken}
             origin={this.state.origin}
-            destination={this.state.destination}
-            stops={this.state.stops}
+            destination={this.state.destination}//{[-0.230934,5.608908]}//
+            //stops={this.state.stops}
             onDirectionsFetched={this.onDirectionsFetched}
             style={this.directionsStyle} />
 
-          <Places
-            featureCollection={this.props.featureCollection}
-            activeIndex={this.state.activeIndex}
-            activeID={this.state.activeID}
-            {...this.placesStyle} />
+          {/*<Places
+                featureCollection={this.props.featureCollection}
+                activeIndex={this.state.activeIndex}
+                activeID={this.state.activeID}
+                {...this.placesStyle} />*/}
 
           <Busses
             busCollection={this.props.busCollection}
@@ -295,12 +327,18 @@ class MapView extends React.Component {
 
         </MapboxGL.MapView>
 
-        <Cards
+        <Search
+          theme={this.props.theme}
+          data={this.props.featureCollection.features}
+          onFindingDirections={this.onFindingDirections}
+        />
+
+        {/*<Cards
           theme={this.props.theme}
           origin={this.state.origin}
           data={this.props.featureCollection.features}
           onActiveIndexChange={this.onActiveIndexChange}
-          activeIndex={this.state.activeIndex} />
+          activeIndex={this.state.activeIndex} />*/}
 
         <CardsBusses
           data={this.state.thisBus}

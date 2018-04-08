@@ -6,10 +6,13 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableNativeFeedback,
   Icon,
   AlertIOS
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
+
 var styles = require('./NewuserStyles.js');
 
 export default class Newuser extends Component<{}> {
@@ -28,21 +31,23 @@ export default class Newuser extends Component<{}> {
       <View style={styles.container}>
         <View style={styles.rowbuttons}>
           <View style={{flex:1}}>
-              <TouchableHighlight
-                style={styles.submit}
-                onPress={() => this._handleRegister(this)}
-                underlayColor='#3B5999'>
-                  <Text style={styles.submitText}>Get Started</Text>
-              </TouchableHighlight>
+              <Ripple onPress={() => this._handleRegister(this)}>  
+                <TouchableHighlight
+                  style={styles.submit}
+                  underlayColor='#3B5999'>
+                    <Text style={styles.submitText}>Get Started</Text>
+                </TouchableHighlight>
+              </Ripple>
               <Text style={styles.confirmText}>
                 Enter SMS Code Confirmation
               </Text>
-              {/*<TouchableHighlight
-                style={styles.login}
-                onPress={() => this._handleLogin(this)}
-                underlayColor='#ffffff'>
-                  <Text style={styles.loginText}>Dashboard</Text>
-              </TouchableHighlight>*/}
+              <Ripple onPress={() => this._handleLogin(this)}>
+                <TouchableHighlight
+                  style={styles.login}
+                  underlayColor='#ffffff'>
+                    <Text style={styles.loginText}>Dashboard</Text>
+                </TouchableHighlight>
+              </Ripple>
             </View>
         </View>  
       </View>

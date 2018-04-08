@@ -12,6 +12,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
 var styles = require('./VerificationStyles.js');
+import Ripple from 'react-native-material-ripple';
 
 export default class Verification extends Component<{}> {
   constructor(props) {
@@ -58,12 +59,13 @@ export default class Verification extends Component<{}> {
                 The phone number {this.state.phoneNumber} is now associated with this device.
               </Text>
 
-              <TouchableHighlight
-                style={styles.login}
-                onPress={() => this._handleLogin(this)}
-                underlayColor='#ffffff'>
-                  <Text style={styles.loginText}>Open</Text>
-              </TouchableHighlight>
+              <Ripple onPress={() => this._handleLogin(this)}>  
+                <TouchableHighlight
+                  style={styles.login}
+                  underlayColor='#ffffff'>
+                    <Text style={styles.loginText}>Open</Text>
+                </TouchableHighlight>
+              </Ripple>
             </View>
         </View>  
       </View>

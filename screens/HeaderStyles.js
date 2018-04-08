@@ -119,14 +119,16 @@ module.exports = StyleSheet.create({
   },
   mapHeaderText: {
     fontSize: 24,
-    color: 'white',
+    color: '#ffffff',
+    backgroundColor: 'transparent',
     alignSelf: 'center',
     position: 'relative',
-    top: -60,
+    top: 40,
   },
   backArrow: {
     position: 'absolute',
     top: 40,
     left: 24,
   },
+  
 });
