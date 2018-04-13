@@ -40,24 +40,24 @@ module.exports = StyleSheet.create({
 	    backgroundColor: 'green',
 	    transform: [{ scale: 0.6 }],
 	  },
-	  
+
 	  container: {
 	    flex: 1,
-	    
-	    
+
+
 	  },
 	  innerTop:{
 	  	flex: 1,
-	  	alignItems: 'stretch', 
-	  	justifyContent: 'flex-start', 
-	  	
+	  	alignItems: 'stretch',
+	  	justifyContent: 'flex-start',
+
 	  },
 	  innerBot:{
 	  	flex: 1,
 	  	backgroundColor: '#303030',
-	  	alignItems: 'stretch', 
-	  	justifyContent: 'flex-start', 
-	  	
+	  	alignItems: 'stretch',
+	  	justifyContent: 'flex-start',
+
 	  },
 	  paragraph: {
 	    margin: 0,
@@ -76,13 +76,13 @@ module.exports = StyleSheet.create({
 	},
 	textbox: {
   	margin: 10,
-    height: 40, 
+    height: 40,
     paddingLeft: 15,
     paddingRight: 15,
     fontSize: 15,
     textAlign: 'left',
     color: '#000',
-    borderColor: '#fff', 
+    borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 5
   },
@@ -103,7 +103,12 @@ module.exports = StyleSheet.create({
       textAlign:'center',
   },
   matchParent: {
-    flex: 1,
+    // flex: 1,
+    height: 54,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    // backgroundColor: "#ccc"
   },
   mapHeader: {
     position: 'absolute',
@@ -130,5 +135,5 @@ module.exports = StyleSheet.create({
     top: 40,
     left: 24,
   },
-  
+
 });

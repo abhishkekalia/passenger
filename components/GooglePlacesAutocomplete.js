@@ -26,6 +26,8 @@ const defaultStyles = {
   textInputContainer: {
     backgroundColor: 'transparent',
     height: 44,
+    // justifyContent : 'center',
+    alignItems : 'center',
     //borderTopColor: '#7e7e7e',
     //borderBottomColor: '#b5b5b5',
     //borderTopWidth: 1 / PixelRatio.get(),
@@ -40,7 +42,7 @@ const defaultStyles = {
     paddingBottom: 4.5,
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 7.5,
+    // marginTop: 7.5,
     marginLeft: 8,
     marginRight: 8,
     fontSize: 15,
@@ -600,7 +602,7 @@ export default class GooglePlacesAutocomplete extends Component {
 
   _renderPoweredLogo = () => {
       return null
-    
+
   }
 
   _shouldShowPoweredLogo = () => {

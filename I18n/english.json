@@ -1,0 +1,39 @@
+{
+    "id": "English",
+    "loading" : {
+        "title": "Smart Transit",
+    },
+    "landing": {
+        "start":"Get Started",
+        "codeConfirmation":"Enter SMS Code Confirmation",
+        "cancel":"Cancel",
+        "selarea":"Select Delivery Area",
+        "selcountryfirst":"Select Country First",
+        "internetconnection":"Internet connection not available"
+    },
+    "Reg_confirmation" : {
+        "confirmation_code":"Enter Confirmation Code",
+        "no_code":"No verification code? Re-enter phone number",
+    },
+    "Reg_Acount" : {
+        "phoneNumber":"Add your phone number.Sms text will be sent for confirmation",
+        "next":"Next",
+    },
+    "register" : {
+        "addphone": "Add your phone\n" +"number to receive your\n"+"code",
+        "placeholder" : "enter phone number",
+    },
+    "registeracount": {
+        "secretTitle": "Enter 4 digit Code",
+        "secretCode": "Secret Code",
+        "warningString": "This allows you to make Smart Transit payment \n" + " without your phone",
+        "registerButton" : "Register"
+    },
+    "varification": {
+        "varificationTitle": "Account Verification",
+        "successString_1": "The phone number ",
+        "successString_2": "is now associated with this device",
+        "openSmartTransit" : "Open Smart Transit"
+    }
+
+}

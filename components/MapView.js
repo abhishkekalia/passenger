@@ -81,7 +81,7 @@ class MapView extends React.Component {
 
     if (this.props.featureCollection && this.props.featureCollection.features.length > 0) {
       const feature = this.props.featureCollection.features[0];
-      
+
       if (feature) {
         //destination = feature.geometry.coordinates;
         activeID = feature.id;
@@ -134,7 +134,7 @@ class MapView extends React.Component {
       Places.UnselectedSymbolID,
     ]);
 
-    
+
     let feature = null;
     if (hitFeatureCollection.features.length > 0) {
       feature = hitFeatureCollection.features[0];

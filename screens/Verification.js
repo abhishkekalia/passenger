@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -28,7 +27,7 @@ export default class Verification extends Component<{}> {
   }
 
   _handleLogin= () => {
-    
+
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
@@ -36,8 +35,8 @@ export default class Verification extends Component<{}> {
       ]
     })
     this.props.navigation.dispatch(resetAction)
-    
-    
+
+
     //this.props.navigation.navigate('Dashboard');
     //AlertIOS.alert("Not Implemented Yet!")
   }
@@ -59,7 +58,7 @@ export default class Verification extends Component<{}> {
                 The phone number {this.state.phoneNumber} is now associated with this device.
               </Text>
 
-              <Ripple onPress={() => this._handleLogin(this)}>  
+              <Ripple onPress={() => this._handleLogin(this)}>
                 <TouchableHighlight
                   style={styles.login}
                   underlayColor='#ffffff'>
@@ -67,9 +66,8 @@ export default class Verification extends Component<{}> {
                 </TouchableHighlight>
               </Ripple>
             </View>
-        </View>  
+        </View>
       </View>
     );
   }
 }
-
