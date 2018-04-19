@@ -18,6 +18,7 @@ export default {
     },
     footerText: {
         color:'white',
+        fontSize : 15
     },
     scrollView: {
         backgroundColor: '#485EB1',

@@ -21,10 +21,11 @@ export default class RegisterAcount extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            // phoneNumber: this.props.navigation.state.params.phoneNumber,
-            phoneNumber: '',
+            phoneNumber: this.props.navigation.state.params.phoneNumber,
+            // phoneNumber: '',
             errorMessage: '',
-            inputValue: I18n.t("registeracount.secretTitle"),
+            otpTitle: I18n.t("registeracount.secretTitle"),
+            otp : '',
             text: '',
             country: ''
         };
@@ -35,22 +36,24 @@ export default class RegisterAcount extends Component{
         }
     }
     changeText(newText) {
-        this.setState({ phoneNumber: newText });
+        this.setState({ otp: newText });
     }
     validate(){
-        const {phoneNumber} = this.state;
-        if (phoneNumber.length !== 4){
+        const {otp} = this.state;
+        if (otp.length !== 4){
             alert("Please Insert 4 Digit One Time Password")
             return false;
         }
         return true;
     }
     render() {
+        const {otp}= this.state;
+        otp.length === 4 ? this._handleRegisterProcess() : undefined
         return (
             <View style={styles.container}>
                 <View style={styles.innerTop} >
                     <Text style={styles.phoneNumber}>
-                        { !this.state.phoneNumber.length ? this.state.inputValue : this.state.phoneNumber}
+                        { !this.state.otp.length ? this.state.otpTitle  : this.state.otp}
                     </Text>
                     <Text style={styles.warning}>
                         { I18n.t("registeracount.warningString")}

@@ -3,41 +3,44 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // 4.5.0
+import EvilIcons from 'react-native-vector-icons/EvilIcons'; // 4.5.0
 
 export default class InsideDashboard extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 15, color: "#000"}}>Remaining Balance</Text>
+                <Text style={{ fontSize: 12 , color: "#ccc", paddingVertical: 10}}>Remaining Balance</Text>
                 <View style={styles.price}>
-                    <View style={styles.Dolar}>
-                        <Text style={{ fontSize: 15, color: "#000"}}>$</Text>
-                        <Text style={{ fontSize: 15, color: "#000"}}>150</Text>
+                    <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row',  paddingVertical: 10}}>
+                            <Text style={{ fontSize: 15, color: "#000", alignSelf: 'center'}}>$</Text>
+                            <Text style={{ fontSize: 30, color: "#3B5999", fontWeight: '500'}}>190</Text>
+                        </View>
+                        <TouchableOpacity style={[styles.Dolar, { paddingVertical: 10}]} onPress={()=>alert("Add Balance")}>
+                            <EvilIcons color="#ccc" size={25} name="plus"/>
+                            <Text style={{ fontSize: 15, color: "#ccc"}}>Add Balance</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.Dolar, { paddingVertical: 10}]} onPress={()=>alert("Send Gifts")}>
+                        <Icon color="#000" size={25} name="gift"/>
+                            <Text style={{ fontSize: 15, color: "#000"}}>Send Gifts</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.tripstaken}>
-                        <Text style={{ fontSize: 15, color: "#000"}}>Trips Taken</Text>
-                        <Text style={{ fontSize: 15, color: "#000"}}>15</Text>
+                    <View style={{flexDirection: 'column'}}>
+                    <View style={[{paddingVertical: 0}]}>
+                        <Text style={{ fontSize: 15, color: "#ccc"}}>Trips Taken</Text>
+                        <Text style={{ fontSize: 25, color: "#000", fontWeight: 'bold'}}>15</Text>
                     </View>
-                </View>
-                <View style={styles.balance}>
-                <View style={styles.Dolar}>
-                <Icon color="#000" size={25} name="plus-circle"/>
-                    <Text style={{ fontSize: 15, color: "#000"}}>Add Balance</Text>
-                </View>
-                <View style={styles.Dolar}>
-                    <Text style={{ fontSize: 15, color: "#000"}}>Kilometres Travelled</Text>
-                </View>
-                </View>
-                <View style={styles.balance}>
-                <View style={styles.Dolar}>
-                <Icon color="#000" size={25} name="gift"/>
-                    <Text style={{ fontSize: 15, color: "#000"}}>Send Gifts</Text>
-                </View>
-                <View style={styles.Dolar}>
-                    <Text style={{ fontSize: 15, color: "#000"}}>210 KMS</Text>
+                    <View style={[styles.Dolar,{ paddingVertical: 10}]}>
+                        <Text style={{ fontSize: 15, color: "#ccc"}}>Kilometres Travelled</Text>
+                    </View>
+                    <View style={{ paddingVertical: 10, flexDirection: 'row'}}>
+                        <Text style={{ fontSize: 30, color: "#000", fontWeight: '500'}}>210</Text>
+                            <Text style={{ fontSize: 15, color: "#000", alignSelf: 'flex-end'}}>KMS</Text>
+                    </View>
                 </View>
                 </View>
             </View>
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     price: {
         // flex: 1,
         justifyContent: 'space-around',
-        alignItems: 'center',
+        // alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: '#F5FCFF',
     },

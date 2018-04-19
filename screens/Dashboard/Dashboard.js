@@ -6,7 +6,9 @@ import {
     View,
     StatusBar,
     Animated,
-    ScrollView
+    ScrollView,
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import MapboxGL from '@mapbox/react-native-mapbox-gl'; // 6.0.3-rc1
 MapboxGL.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -16,7 +18,9 @@ import 'moment-timezone'; // 0.5.14
 import "moment"; // 2.20.1
 import MappingKit from '../MappingKit';
 import LinearGradient from 'react-native-linear-gradient'; // 2.4.0
-import Icon from 'react-native-vector-icons/MaterialIcons'; // 4.5.0
+import Icon from 'react-native-vector-icons/Ionicons'; // 4.5.0
+import Feather from 'react-native-vector-icons/Feather'; // 4.5.0
+import ActionButton from 'react-native-action-button';
 import busStops from '../../assets/places.json';
 import Header from '../Header';
 import SegmentedDasboard from './SegmentedDasboard';
@@ -25,6 +29,8 @@ import {
     blueThemeBus
 } from '../themes';
 const IS_IOS = Platform.OS === 'ios';
+const { width, height } = Dimensions.get('window')
+
 var styles = require('./DashboardStyles');
 // const LATITUDE = 5.639344;
 // const LONGITUDE = -0.243016;
@@ -74,6 +80,7 @@ export default class Dashboard extends Component {
                 tripid: '',
                 label: '',
             },
+            menuOpen : false
         };
         this._scaleIn = null;
         this._scaleOut = null;
@@ -209,6 +216,17 @@ export default class Dashboard extends Component {
                 <View style={{ flex: 1}}>
                     <SegmentedDasboard/>
                 </View>
+                <ActionButton buttonColor="rgba(231,76,60,1)">
+                  <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+                    <Icon name="md-create" style={styles.actionButtonIcon} />
+                  </ActionButton.Item>
+                  <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+                    <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                  </ActionButton.Item>
+                  <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
+                    <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                  </ActionButton.Item>
+                </ActionButton>
 
             </View>
         );

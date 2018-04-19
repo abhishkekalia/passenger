@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { StyleSheet,} from 'react-native';
+import { StyleSheet, Dimensions} from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 module.exports = StyleSheet.create({
     container: {
@@ -35,11 +36,12 @@ module.exports = StyleSheet.create({
         height: 50,
         paddingTop: 15,
         fontSize: 18,
-        textAlign: 'center',
+        // textAlign: 'center',
         color: '#fff',
+        // left: 5
         borderColor: '#383838',
-        borderWidth: 1,
-        borderRadius:10,
+        borderBottomWidth: 1,
+        // borderRadius:10,
     },
     testing: {
         borderRadius: 4,

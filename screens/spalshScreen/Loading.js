@@ -16,13 +16,13 @@ export default class Loading extends Component{
         this.state = {
         };
     }
-    navigatetolanding(){
-        setTimeout(function () {
-            this.props.navigation.navigate('LandingScreen');
-        }.bind(this), 1000);
-    }
+    // navigatetolanding(){
+    //     setTimeout(function () {
+    //         this.props.navigation.navigate('LandingScreen');
+    //     }.bind(this), 1000);
+    // }
     render() {
-        this.navigatetolanding()
+        // this.navigatetolanding()
         return (
             <View style={styles.container}>
                 <View style={styles.logo}>

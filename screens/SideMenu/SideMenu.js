@@ -116,17 +116,15 @@ class SideMenu extends Component {
                         <View style={styles.userIcon} >
                             <View style={styles.avatar}>
                                 {
-                            this.state.thumblinename === "" ?
-                            <Image  source={require('../../images/avatar.png')}
-                                 style={styles.avatarProfile}/>                            :
-                            <Image style={styles.avatarProfile} source={this.state.avatarSource} />
-}
-
+                                    this.state.thumblinename === ""
+                                    ?
+                                    <Image  source={require('../../images/avatar.png')} style={styles.avatarProfile}/>
+                                    :
+                                    <Image style={styles.avatarProfile} source={this.state.avatarSource} />
+                                }
                                 <TouchableHighlight  onPress={()=>this.selectPhotoTapped()}
-                                     style={{ width: 30, height: 30, backgroundColor: "#fff", borderRadius: 15, justifyContent: 'center',  position: 'absolute', left: 70, borderWidth: StyleSheet.hairlineWidth, borderColor: "#3B5999"}}>
-                                <EvilIcons underlayColor='#5F514B' name='pencil' type= 'Action' color= '#ccc' size= {30}
-                                    // style={{}}
-                                    />
+                                    style={{ width: 30, height: 30, backgroundColor: "#fff", borderRadius: 15, justifyContent: 'center',  position: 'absolute', left: 70, borderWidth: StyleSheet.hairlineWidth, borderColor: "#3B5999"}}>
+                                    <EvilIcons underlayColor='#5F514B' name='pencil' type= 'Action' color= '#ccc' size= {30}/>
                                 </TouchableHighlight>
                             </View>
                         </View>
@@ -140,66 +138,43 @@ class SideMenu extends Component {
                             </Text>
                         </View>
                         <View style={{height: StyleSheet.hairlineWidth, backgroundColor: "#fff"}}/>
-                        <Text style={styles.categoryLabel}>
-                            Home
+                        <Text style={styles.categoryLabel}  onPress={this.navigateToScreen('Dashboard')}>
+                            Dashboard
+                                                                                                                                                                                                                                                    </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.categoryLabel} onPress={()=>alert("I am travel")}>
+                            Travel
                         </Text>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={this.navigateToScreen('Dashboard')}>
-                                Current Trip
-                            </Text>
-                        </View>
+                    </View>
+                    <View>
+                        <Text style={styles.categoryLabel} onPress={()=>alert("My Trips")}>
+                            My Trips
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.categoryLabel} onPress={()=>alert("My Funds")}>
+                            My Funds
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.categoryLabel} onPress={()=>alert("Payment Method")}>
+                            Payment Method
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.categoryLabel} onPress={()=>alert("Rewards")}>
+                            Rewards
+                        </Text>
                     </View>
                     <View>
                         <Text style={styles.categoryLabel}>
-                            Account
+                            Acount Settings
                         </Text>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={this.navigateToScreen('Profile')}>
-                                Edit Profile
-                            </Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
-                                Payment Options
-                            </Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
-                                My Trips
-                            </Text>
-                        </View>
-                    </View>
-                    <View>
-                        <Text style={styles.categoryLabel}>Connect Account</Text>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
-                                Facebook
-                            </Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
-                                Twitter
-                            </Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowLabel} onPress={() => alert("Coming Soon!")}>
-                                Gmail
-                            </Text>
-                        </View>
                     </View>
                 </ScrollView>
                 <View style={styles.footerContainer}>
                     <Text style={styles.footerText}>About smartTransit</Text>
-                    <View style={{flexDirection:"row"}}>
-                        <View style={styles.logoutIcon} >
-                            <Icon onPress={() => this._logout()} underlayColor='#5F514B' name='input' type= 'Action' color= '#fff' size= {30}/>
-                        </View>
-                        <View style={styles.logoutText}>
-                            <Text style={styles.rowLabel} onPress={() => this._logout()}>
-                                Sign out
-                            </Text>
-                        </View>
-                    </View>
                 </View>
             </View>
         );

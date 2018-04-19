@@ -16,8 +16,8 @@ module.exports = StyleSheet.create({
 	},
 	title : {
 		color: "#fff",
-		fontSize: 30,
-		fontWeight: "300"
+		fontSize: 50,
+		fontWeight: "500"
 	},
 	blankView: {
 		flex: 1,

@@ -24,7 +24,7 @@ class Header extends React.Component{
                     // style={styles.backArrow}
                     color='#000' />
                     <Text
-                        //  style={styles.backArrow}
+                         style={{ fontSize: 15, color: "#696969", fontWeight: '500'}}
                         >Smart Transit</Text>
                     <View style={{ flexDirection: 'row', width: 100, justifyContent: 'space-around'}}>
                         <Icon

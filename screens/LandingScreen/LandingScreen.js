@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import Ripple from 'react-native-material-ripple';
+import {Actions as routes} from "react-native-router-flux";
 import I18n from 'react-native-i18n';
 import styles  from './LandingScreensStyle.js';
 export default class LandingScreen extends Component{
@@ -19,7 +20,8 @@ export default class LandingScreen extends Component{
         this.props.navigation.navigate('Register');
     }
     _Registrationconfirmation= () => {
-        this.props.navigation.navigate('Registrationconfirmation');
+        routes.Registrationconfirmation()
+        // this.props.navigation.navigate('Registrationconfirmation');
     }
     // _handleLogin= () => {
     //     this.props.navigation.navigate('Dashboard');
